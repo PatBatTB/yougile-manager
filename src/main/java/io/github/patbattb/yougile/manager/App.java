@@ -6,12 +6,16 @@ import java.nio.file.Path;
 
 import io.github.patbattb.plugins.manager.exception.PluginNotLoadedException;
 import io.github.patbattb.plugins.manager.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class App {
 
     private static final Path PLUGINS_FOLDER = Path.of("plugins");
+    private static final Path CONFIG_FILE = Path.of("manager.config");
 
     public static void main(String[] args) {
+        Parameters parameters = new Parameters(CONFIG_FILE);
         init();
         PluginLoader loader = new JarPluginLoader(PLUGINS_FOLDER);
         PluginManager manager;
@@ -20,13 +24,15 @@ public class App {
         } catch (PluginNotLoadedException e) {
             throw new RuntimeException(e);
         }
-        try (PluginScheduler scheduler = new PluginScheduler(manager, new PluginExecutor(30), 30)) {
+        try (PluginScheduler scheduler = new PluginScheduler(manager,
+                new PluginExecutor(parameters.getThreadPool()), parameters.getCycleTimeout())) {
             scheduler.run();
         }
     }
 
     private static void init() {
         createPluginsFolder();
+        initProperties();
     }
 
     private static void createPluginsFolder() {
@@ -36,6 +42,12 @@ public class App {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    private static void initProperties() {
+        if (!Files.exists(CONFIG_FILE)) {
+            throw new RuntimeException("The config file " + CONFIG_FILE + " doesn't found.");
         }
     }
 }
