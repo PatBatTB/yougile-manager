@@ -27,6 +27,7 @@ public class App {
         try (PluginScheduler scheduler = new PluginScheduler(manager,
                 new PluginExecutor(parameters.getThreadPool()), parameters.getCycleTimeout())) {
             scheduler.run();
+            System.exit(scheduler.getExitCode());
         }
     }
 
