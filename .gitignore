@@ -4,7 +4,7 @@ target/
 !**/src/test/**/target/
 plugins/*
 *.log
-*.config
+manager.config.json
 
 ### IntelliJ IDEA ###
 .idea/

@@ -1,0 +1,28 @@
+{
+  "manager": {
+    "threads": 5,
+    "cycle": 60,
+    "terminationTimeout": 300
+  },
+  "mail": {
+    "report": {
+      "interrupted": false,
+      "critical": true
+    },
+    "from": {
+      "name": "YouGile-plugins notifier",
+      "email": "techuser@example.com"
+    },
+    "recipients": [
+      "mymail@example.com",
+      "mysecondmail@example.com"
+    ],
+    "smtp": {
+      "host": "smtp.yandex.com",
+      "port": 465,
+      "ssl": true,
+      "username": "myuser@yandex.ru",
+      "password": "secretpassword"
+    }
+  }
+}

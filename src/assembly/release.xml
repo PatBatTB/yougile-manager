@@ -16,9 +16,9 @@
             <destName>${project.artifactId}.jar</destName>
         </file>
         <file>
-            <source>manager.config.default</source>
+            <source>manager.config.default.json</source>
             <outputDirectory>/</outputDirectory>
-            <destName>manager.config</destName>
+            <destName>manager.config.json</destName>
         </file>
         <file>
             <source>start.sh</source>
